@@ -135,6 +135,7 @@ const char help_content[] =
 char opt_title[1000] = "";
 char opt_content[1000];
 
+std::string image_dir;
 
 //-------------------------------- utility functions ------------------------------------
 void projectionToOpenGLTopLeft( double p[16], const cv::Mat &K, int w, int h, float zNear, float zFar)
@@ -769,7 +770,7 @@ void render(GLFWwindow* window)
       //  cv::flip(depth_mm,depth_mm,0);
         
         std::stringstream ss;
-        ss << "../images/depth/" << std::setfill('0') << std::setw(4) << contdepth << ".png";
+        ss << image_dir+"/depth/" << std::setfill('0') << std::setw(4) << contdepth << ".png";
         cv::imwrite(ss.str(), depth_mm);
         cv::Mat image = cv::imread(ss.str(),CV_LOAD_IMAGE_ANYDEPTH);
         image.convertTo(image,CV_32F);
@@ -778,7 +779,7 @@ void render(GLFWwindow* window)
 //         cv::imshow("imag", depth_color);
 //         cvWaitKey(33);
         ss.str(""); ss.clear();
-        ss << "../images/color/" << std::setfill('0') << std::setw(4) << contdepth << ".png";
+        ss << image_dir+"/color/" << std::setfill('0') << std::setw(4) << contdepth << ".png";
         cv::imwrite(ss.str(), color_im);
         
        
@@ -964,6 +965,25 @@ int main(int argc, const char** argv)
     printf("cam elevation:  [%lf ]\n", cam.elevation);
     printf("cam lookat:  [%lf %lf %lf  ]\n", cam.lookat[0],cam.lookat[1],cam.lookat[2]);
 
+    char szFile[32] = {0,};
+    bool file_ready = false;
+    int count = 0;
+    while(!file_ready) {
+       sprintf(szFile, "Log%03d.csv", count);
+       if(0 != access(szFile, F_OK)) {
+          file_ready=true;
+       }
+       if(count++ > 256) break;
+    }
+    if (file_ready) {
+       image_dir="/tmp/";
+       image_dir+=szFile;
+       std::string c_dir = "mkdir -p "+image_dir+"/color/";
+       std::string d_dir = "mkdir -p "+image_dir+"/depth/";
+       system(c_dir.c_str());
+       system(d_dir.c_str());
+    }
+
     //  m->opt.timestep = 0.00001;
     // main loop
     std::vector<double> save_data;
@@ -1007,16 +1027,7 @@ int main(int argc, const char** argv)
         glfwPollEvents();
     }
     // File writing code 
-    char szFile[32] = {0,};
-    bool file_ready = false;
-	int count = 0;
-	while(!file_ready) {
-		sprintf(szFile, "Log%03d.csv", count);
-		if(0 != access(szFile, F_OK)) {
-            file_ready=true;
-        }
-		if(count++ > 256) break;
-	}
+    
 
     if (file_ready) {
         std::ofstream file_output;
@@ -1046,6 +1057,10 @@ int main(int argc, const char** argv)
 			file_output << std::endl;
         }
     }
+    std::string copy_cmd = "cp ";
+       copy_cmd+=szFile;
+    copy_cmd=copy_cmd+" "+image_dir+"/";
+    system(copy_cmd.c_str());
 
     // delete everything we allocated
     mj_deleteData(data);
