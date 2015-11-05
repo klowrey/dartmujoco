@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+# ignore mujoco key
+mjkey.txt
+
+# ignore images
+*.png

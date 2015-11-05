@@ -1,4 +1,8 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 2.8)
+
+set( CMAKE_PREFIX_PATH "/opt/opencv3/" ) # where kendall installed opencv 3.0.0
+
+
 project(mujoco_example)
 
 find_package(OpenCV REQUIRED)
@@ -8,7 +12,7 @@ set(MUJOCO_DIR "/opt/mujoco/") #set the mujoco path here
 
 add_definitions(-std=c++11)
 
-include_directories( ${MUJOCO_DIR} ${OPENNI_INCLUDE_DIRS}  )
+include_directories( ${MUJOCO_DIR} ${OpenCV_INCLUDE_DIRS} ${OPENNI_INCLUDE_DIRS} )
 
 link_directories( ${MUJOCO_DIR} )
 

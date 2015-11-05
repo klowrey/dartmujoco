@@ -14,7 +14,8 @@
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/contrib/contrib.hpp>
+
+//#include <opencv2/contrib/contrib.hpp> // opencv2, not 3.0
 
 
 #include <stdio.h>
@@ -966,7 +967,6 @@ int main(int argc, const char** argv)
     //  m->opt.timestep = 0.00001;
     // main loop
     std::vector<double> save_data;
-    double data_start = glfwGetTime();
     while( !glfwWindowShouldClose(window) ) {
         if (start) {
             static double data_start = data->time;
@@ -986,14 +986,14 @@ int main(int argc, const char** argv)
 
             // actuate
             mj_step1(m,data);
-            // simulate and render
-            if (data->ctrl[0] > -1.97) {
-                //printf("Joint 0 = %lf\n",data->qpos[0] );
-                data->ctrl[0]-=0.12;
-            }
+            //if (data->ctrl[0] > -1.97) {
+            //    data->ctrl[0]-= 0.2;
+            //}
             if (data->ctrl[1] > -0.57) {
-                //       printf("Joint 1 = %lf\n",data->qpos[1] );
-                data->ctrl[1]-=0.12;
+                data->ctrl[1]-= 0.25;
+            }
+            if (data->ctrl[2] > -0.57) {
+                data->ctrl[2]-= 0.25;
             }
             mj_step2(m,data);
 
