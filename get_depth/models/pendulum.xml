@@ -1,0 +1,31 @@
+<mujoco>
+   <worldbody>
+      <body pos = "0 0 0">
+         <geom type="capsule" fromto="0 0 1  0 0 0.6" size="0.06"/>
+         <joint type="ball" pos="0 0 1"/>
+         <body pos="0 0 0">
+            <geom type="capsule" fromto="0 0 0.6  0.3 0 0.6" size="0.04"/>
+            <joint type="hinge" pos="0 0 0.6" axis="0 1 0"/>      
+            <joint type="hinge" pos="0 0 0.6" axis="1 0 0"/>      
+            <body pos="0 0 0">
+               <geom type="ellipsoid" pos="0.4 0 0.6" size="0.1 0.08 0.02"/>
+               <site name="end1" type="ellipsoid"  pos="0.5 0 0.6" size=".1 .1 .1"/>
+               <joint type="hinge" pos="0.3 0 0.6" axis="0 1 0"/>    
+               <joint type="hinge" pos="0.3 0 0.6" axis="0 0 1"/>    
+            </body>
+         </body>
+      </body>
+      <body pos="0 0 0">
+         <geom type="cylinder" fromto="0.5 0 0  0.5 0 -0.2" size="0.07"/>
+         <site name="end2" type="ellipsoid" pos="0.5 0 0" size=".001 .001 .01"/>
+         <joint type="free"/>
+      </body>
+   </worldbody>
+   
+   <tendon>
+      <spatial limited="true" range="0 0.6">
+         <site site="end1"/>
+         <site site="end2"/>
+      </spatial>
+   </tendon>
+</mujoco>

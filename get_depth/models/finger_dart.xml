@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<model>
+        <param name="cilRadius" value="0.04"/>
+        <param name="segmentLen" value="0.18"/>        
+        <param name="scale" value="1" />
+
+        
+        <frame jointName="element0" jointType="rotational" jointMin="-0.5" jointMax="0.5">             
+                <position x="0.0" y="segmentLen" z="0.0" />
+                <orientation x="0" y="0" z="0" />
+                <axis x="0" y="1" z="0" />                                  
+                <geom type="sphere" sx="cilRadius" sy="cilRadius" sz="cilRadius" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" red="233" green="217" blue="61" /> 
+                <geom type="cylinder" sx="cilRadius" sy="cilRadius" sz="segmentLen" tx="0" ty="0" tz="0" rx="1.57079" ry="0" rz="0" red="233" green="217" blue="61" />               
+                <geom type="cylinder" sx="cilRadius" sy="cilRadius" sz="segmentLen" tx="0" ty="0" tz="0" rx="0.0" ry="0" rz="0" red="233" green="217" blue="61" />      
+        
+                    <frame jointName="element1" jointType="rotational" jointMin="-0.571" jointMax="0.57">
+                        <position x="0" y="0" z="segmentLen" />
+                        <orientation x="0.0" y="0" z="0" />
+                        <axis x="0" y="-1" z="0" />
+                        <geom type="sphere" sx="cilRadius" sy="cilRadius" sz="cilRadius" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" red="133" green="217" blue="61" />   
+                        <geom type="cylinder" sx="cilRadius" sy="cilRadius" sz="segmentLen" tx="0" ty="0" tz="0.0" rx="0" ry="-1.57079" rz="0" red="X33" green="217" blue="61" />
+                        <!--<geom type="sphere" sx="cilRadius" sy="cilRadius" sz="cilRadius" tx="-segmentLen" ty="0" tz="0" rx="0" ry="0" rz="0" red="233" green="217" blue="61" />                                           -->
+                        <frame jointName="element2" jointType="rotational" jointMin="-.001" jointMax=".001">
+                                <position x="-segmentLen" y="0" z="0" />
+                                <orientation x="0" y="0" z="0" />
+                                <axis x="0" y="-1" z="0" />              
+                                <geom type="sphere" sx="cilRadius" sy="cilRadius" sz="cilRadius" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" red="23" green="216" blue="161" />                                                                   
+                        </frame>
+                </frame> 
+        </frame>      
+</model>
