@@ -36,8 +36,8 @@
     </worldbody>         
         
     <actuator>
-        <position name='finger1' kp='8' joint='finger1' />
-        <position name='finger2' kp='8' joint='finger2' />
-        <position name='finger3' kp='8' joint='finger3' />
+        <position name='finger1' kp='20' joint='finger1' />
+        <position name='finger2' kp='20' joint='finger2' />
+        <position name='finger3' kp='20' joint='finger3' />
     </actuator>
 </mujoco>

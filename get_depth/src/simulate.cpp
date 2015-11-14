@@ -363,6 +363,25 @@ void keyboard(GLFWwindow* window, int key, int scancode, int act, int mods)
                 loadmodel(window, lastfile);
 			else if ( key==GLFW_KEY_W )
 				glfwSetWindowShouldClose(window, GL_TRUE);
+            else if ( key==GLFW_KEY_P ) {
+                std::cout << "Qpos: ";
+                for (int i=0; i<m->nq; i++) { // joint positions
+                    std::cout<<data->qpos[i]<<" ";
+                }
+                std::cout <<"\nQvel: ";
+                for (int i=0; i<m->nv; i++) { // velocities
+                    std::cout<<data->qvel[i]<<" ";
+                }
+                std::cout <<"\nQacc: ";
+                for (int i=0; i<m->nv; i++) { // accelerations
+                    std::cout<<data->qacc[i]<<" ";
+                }
+                std::cout <<"\nCtrl: ";
+                for (int i=0; i<m->nu; i++) { // controls
+                    std::cout<<data->ctrl[i]<<" ";
+                }
+                std::cout<<"\n";
+            }
 
             break;
         }
@@ -1001,24 +1020,18 @@ int main(int argc, const char** argv)
                 save_data.push_back(data->qacc[i]);
             }
             for (int i=0; i<m->nu; i++) { // controls
-                save_data.push_back(data->qpos[i]);
+                save_data.push_back(data->ctrl[i]);
             }
 
             // actuate
-            mj_step1(m,data);
-            //if (data->ctrl[0] > -1.97) {
-            //    data->ctrl[0]-= 0.2;
-            //}
-            if (data->ctrl[1] > -0.57) {
-                data->ctrl[1]-= 0.25;
+            if (data->ctrl[1] > -1.0) {
+                data->ctrl[1]-= 0.05;
             }
-            if (data->ctrl[2] > -0.57) {
-                data->ctrl[2]-= 0.25;
+            if (data->ctrl[2] > -1.0) {
+                data->ctrl[2]-= 0.1;
             }
-            mj_step2(m,data);
-
+            mj_step(m,data);
         }
-        //printf("Qpos: %f %f\nCtrl: %f %f\n", data->qpos[0], data->qpos[1], data->ctrl[0], data->ctrl[1]);
 
         render(window);
 
@@ -1028,12 +1041,14 @@ int main(int argc, const char** argv)
     }
     // File writing code 
     
+    printf("nq: %d nv: %d nu: %d\n", m->nq, m->nv, m->nu);
 
     if (file_ready) {
         std::ofstream file_output;
         file_output.open(szFile, std::ios::out);
         for (std::vector<double>::iterator it=save_data.begin(); it!=save_data.end(); ++it) {
             file_output << *it << ",";
+            it++;
             // positions
             for(int id = 0; id < m->nq; id++) {
                 file_output << *it << ",";
@@ -1054,6 +1069,7 @@ int main(int argc, const char** argv)
                 file_output << *it << ",";
                 it++;
             }
+            it--;
 			file_output << std::endl;
         }
     }
