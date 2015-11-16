@@ -32,3 +32,5 @@ mjkey.txt
 
 # ignore images
 *.png
+
+*.swp

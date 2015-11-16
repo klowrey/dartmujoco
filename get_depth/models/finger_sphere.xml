@@ -1,0 +1,44 @@
+<mujoco> 
+   <compiler inertiafromgeom='true' angle='degree' coordinate="local"/>
+   <option timestep='0.005'>
+      <!--<flags solverstat="enable" energy="enable"/>-->
+   </option>
+
+   <default>
+      <!--<position ctrlrange='-2 2' ctrllimited='true'/> -->
+      <joint damping='0.5' armature='1.0068' />
+   </default>
+
+   <size nstack="8000" nuserdata="3" nkey="1" />
+
+    <worldbody>
+      <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>    
+
+      <geom type="plane" size="2.0 2.0 2.0" rgba=".9 0 0 1"/>
+      <body name='finger' pos="0.0 0.0 0.0">                           
+         <joint name='finger1' type='hinge' pos='0 0 0' axis='0 0 1' range='-80 80' stiffness='0' />            
+         <geom name='seg1' type='capsule' fromto='0 0 0.039 .0 .0 .2'  size='0.04 0.16' />
+         <body name='segment2' pos='0 0 .2'>
+            <joint name='finger2' type='hinge' pos='0 0 0' axis='0 0 1' range='-80 80' stiffness='0' />            
+            <geom name='seg2' type='capsule' fromto='0 0 0 .0 .2 -.0' size='0.04 0.16' />
+            <body name='segment3' pos='0.0 0.2 .0' >
+               <joint name='finger3' type='hinge' pos='0 0 0' axis='0 0 1' range='-80 80' stiffness='0'/>            
+               <!--<geom name='seg3' type='capsule' fromto='0 0 0 .15 .08 -.0' size='0.04 0.16' />-->
+               <geom name='seg3' type='capsule' fromto='0 0 0 .0 .2 -.0' size='0.04 0.16' />
+            </body>    
+         </body>
+      </body>
+
+      <body name="cube" pos="0.28 0.07 0.3">
+         <joint type="free" armature='0.0' damping='0' />
+         <geom type="sphere"  size=" .135" rgba="0 0.9 0.0 1" mass="0.01"/>
+      </body>
+   </worldbody>         
+
+   <actuator>
+      <position name='finger1' kp='8' joint='finger1' />
+      <position name='finger2' kp='8' joint='finger2' />
+      <position name='finger3' kp='8' joint='finger3' />
+   </actuator>
+</mujoco>
+
