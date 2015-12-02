@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<model>
+    <param name="cilRadius" value="0.135"/>
+
+   <geom type="sphere" sx="cilRadius" sy="cilRadius" sz="cilRadius" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" red="133" green="217" blue="61" />   
+    <frame jointName="c0" jointType="rotational" jointMin="-0.00001" jointMax="0.0001">
+        <position x="-0.135" y="0.135" z="0.27" />
+        <orientation x="0" y="0" z="0" />
+        <axis x="0" y="1" z="0" /> 
+    </frame>
+    <frame jointName="c1" jointType="rotational" jointMin="-0.00001" jointMax="0.0001">
+        <position x="0.135" y="0.135" z="0.27" />
+        <orientation x="0" y="0" z="0" />
+        <axis x="0" y="1" z="0" /> 
+    </frame>        
+    <frame jointName="c2" jointType="rotational" jointMin="-0.00001" jointMax="0.0001">
+        <position x="-0.135" y="-0.135" z="0.27" />
+        <orientation x="0" y="0" z="0" />
+        <axis x="0" y="1" z="0" /> 
+    </frame>    
+    <frame jointName="c3" jointType="rotational" jointMin="-0.00001" jointMax="0.0001">
+        <position x="0.135" y="-0.135" z="0.27" />
+        <orientation x="0" y="0" z="0" />
+        <axis x="0" y="1" z="0" /> 
+    </frame>
+    <frame jointName="c4" jointType="rotational" jointMin="-0.00001" jointMax="0.0001">
+        <position x="-0.135" y="0.135" z="0.0" />
+        <orientation x="0" y="0" z="0" />
+        <axis x="0" y="1" z="0" /> 
+    </frame>
+    <frame jointName="c5" jointType="rotational" jointMin="-0.00001" jointMax="0.0001">
+        <position x="0.135" y="0.135" z="0.0" />
+        <orientation x="0" y="0" z="0" />
+        <axis x="0" y="1" z="0" /> 
+    </frame>        
+    <frame jointName="c6" jointType="rotational" jointMin="-0.00001" jointMax="0.0001">
+        <position x="-0.135" y="-0.135" z="0.0" />
+        <orientation x="0" y="0" z="0" />
+        <axis x="0" y="1" z="0" /> 
+    </frame>    
+    <frame jointName="c7" jointType="rotational" jointMin="-0.00001" jointMax="0.0001">
+        <position x="0.135" y="-0.135" z="0.0" />
+        <orientation x="0" y="0" z="0" />
+        <axis x="0" y="1" z="0" /> 
+    </frame>
+    
+</model>

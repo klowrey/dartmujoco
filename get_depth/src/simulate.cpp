@@ -743,15 +743,15 @@ void render(GLFWwindow* window)
         needselect = 0;
     }
 
-//      printf("camera focal lenght y:  [%lf ]\n", cam.fovy  );
-//     printf("z to the object:  [%lf ]\n", cam.distance);
-//     printf("cam azimuth:  [%lf ]\n", cam.azimuth);
-//     printf("cam elevation:  [%lf ]\n", cam.elevation);
-//     printf("cam lookat:  [%lf %lf %lf  ]\n", cam.lookat[0],cam.lookat[1],cam.lookat[2]);
-//     
-//     printf("\ncontext zfar = %lf \n",con.zfar); 
-//     printf("context znear = %lf \n",con.znear); 
-//     
+     //printf("camera focal lenght y:  [%lf ]\n", cam.fovy  );
+     //printf("z to the object:  [%lf ]\n", cam.distance);
+     //printf("cam azimuth:  [%lf ]\n", cam.azimuth);
+     //printf("cam elevation:  [%lf ]\n", cam.elevation);
+     //printf("cam lookat:  [%lf %lf %lf  ]\n", cam.lookat[0],cam.lookat[1],cam.lookat[2]);
+     //
+     //printf("\ncontext zfar = %lf \n",con.zfar); 
+     //printf("context znear = %lf \n",con.znear); 
+     
     
     // render rgb
     mjr_render(0, rect, &objects, &ropt, &cam.pose, &con);
@@ -764,7 +764,7 @@ void render(GLFWwindow* window)
         // get the depth buffer
         mjr_getBackbuffer(color_buffer, depth_buffer, rect, &con);
         
-        ///********* save the images ***********/
+        /********* save the images ***********/
         cv::Mat depth_im(Hdepth,Wdepth,CV_32F,(float *)depth_buffer);
         cv::Mat color_im(Hdepth,Wdepth,CV_8UC3,(uchar *)color_buffer);
         
@@ -1006,10 +1006,12 @@ int main(int argc, const char** argv)
     //  m->opt.timestep = 0.00001;
     // main loop
     std::vector<double> save_data;
+    int rows=0;
     while( !glfwWindowShouldClose(window) ) {
         if (start) {
             static double data_start = data->time;
             save_data.push_back(data->time-data_start);
+            rows++;
             for (int i=0; i<m->nq; i++) { // joint positions
                 save_data.push_back(data->qpos[i]);
             }
@@ -1045,15 +1047,25 @@ int main(int argc, const char** argv)
 
     if (file_ready) {
         std::ofstream file_output;
+        std::ofstream reported;
+        std::ofstream contacts;
         file_output.open(szFile, std::ios::out);
+        reported.open("reportedJointAngles.txt", std::ios::out);
+        reported << rows <<std::endl;// rows
+        reported << m->nq <<std::endl;// cols 
+        contacts.open("reportedContacts.txt", std::ios::out);
+        contacts << rows << std::endl;
         for (std::vector<double>::iterator it=save_data.begin(); it!=save_data.end(); ++it) {
             file_output << *it << ",";
             it++;
             // positions
             for(int id = 0; id < m->nq; id++) {
                 file_output << *it << ",";
+                reported << *it << " ";
                 it++;
             }
+            reported << std::endl;
+            contacts << "0" << std::endl;
             // velocities
             for(int id = 0; id < m->nv; id++) {
                 file_output << *it << ",";
@@ -1073,10 +1085,17 @@ int main(int argc, const char** argv)
 			file_output << std::endl;
         }
     }
-    std::string copy_cmd = "cp ";
-       copy_cmd+=szFile;
-    copy_cmd=copy_cmd+" "+image_dir+"/";
+    std::string copy_cmd="cp ";
+    copy_cmd=copy_cmd+szFile+" "+image_dir+"/";
     system(copy_cmd.c_str());
+
+    std::string copy_rpt="cp reportedJointAngles.txt ";
+    copy_rpt=copy_rpt+image_dir+"/";
+    system(copy_rpt.c_str());
+
+    std::string copy_ct="cp reportedContacts.txt ";
+    copy_ct=copy_ct+image_dir+"/";
+    system(copy_ct.c_str());
 
     // delete everything we allocated
     mj_deleteData(data);
