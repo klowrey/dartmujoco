@@ -1,0 +1,105 @@
+<mujoco> 
+   <compiler inertiafromgeom='true' angle='degree' coordinate="local"/>
+   <option timestep='0.005'>
+      <!--<flags solverstat="enable" energy="enable"/>-->
+   </option>
+
+   <default>
+      <!-- <position ctrlrange='-2 2' ctrllimited='true'/> -->
+      <joint damping='1.0' armature='1.0068' />
+   </default>
+
+   <size nstack="10000" nuserdata="3" nkey="1" />
+
+    <worldbody>
+      <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>    
+
+      <geom type="plane" size="2.0 2.0 2.0" rgba=".9 0 0 1"/>
+			<!-- Forearm -->
+            <body name='Forearm' pos='0.28 0.07 0.7' quat = '0.707 -0.707 0 0'>
+               <joint damping = '10.0' name='forearm' type='slide' axis = '0 1 0'/>            
+               <!--<geom name='seg3' type='capsule' fromto='0 0 0 .15 .08 -.0' size='0.04 0.16' />-->
+               <geom name='forearm' type='capsule' fromto='0 0 0 .0 .25 -.0' size='0.080 0.16' />
+			   <!-- Wrist -->
+			   <body name='Wrist' pos = '0 0.25 0'>
+				<joint name = 'wrist' type = 'hinge' pos='0 0 0' axis='1 0 0' range='-80 80' stiffness='0'/>
+				<geom name = 'wrist' type = 'sphere' size = '0.10'/>
+				<!-- Finger 1 -->
+				<body name = 'Finger1' pos = '0 0.05 0.080'>
+					<joint name = 'segment1' type = 'hinge' pos = '0 0 0' axis = '1 0 0' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg1' type = 'capsule' fromto='0 0 0 .0 .10 -.0' size='0.020 0.03'/>
+					<body name = 'segment2' pos = '0 0.10 0'>
+					<joint name = 'segment2' type = 'hinge' pos = '0 0 0' axis = '1 0 0' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg2' type = 'capsule' fromto='0 0 0 .0 .08 -.0' size='0.020 0.03'/>
+					<body name = 'segment3' pos = '0 0.08 0'>
+					
+					<joint name = 'segment3' type = 'hinge' pos = '0 0 0' axis = '1 0 0' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg3' type = 'capsule' fromto='0 0 0 .0 .05 -.0' size='0.020 0.03'/>
+					</body>
+					</body>
+				</body>
+				<!-- Finger 2 -->
+				<body name = 'Finger2' pos = '0.080 0.05 0'>
+					<joint name = 'segment21' type = 'hinge' pos = '0 0 0' axis = '0 0 1' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg21' type = 'capsule' fromto='0 0 0 .0 .10 -.0' size='0.020 0.03'/>
+					<body name = 'segment22' pos = '0 0.10 0'>
+					<joint name = 'segment22' type = 'hinge' pos = '0 0 0' axis = '0 0 1' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg22' type = 'capsule' fromto='0 0 0 .0 .08 -.0' size='0.020 0.03'/>
+					<body name = 'segment23' pos = '0 0.08 0'>
+					<joint name = 'segment23' type = 'hinge' pos = '0 0 0' axis = '0 0 1' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg23' type = 'capsule' fromto='0 0 0 .0 .05 -.0' size='0.020 0.03'/>
+					</body>
+					</body>
+				</body>
+				<!-- Finger 3 -->
+				<body name = 'Finger3' pos = '-0.080 0.05 0'>
+					<joint name = 'segment31' type = 'hinge' pos = '0 0 0' axis = '0 0 1' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg31' type = 'capsule' fromto='0 0 0 .0 .10 -.0' size='0.020 0.03'/>
+					<body name = 'segment32' pos = '0 0.10 0'>
+					<joint name = 'segment32' type = 'hinge' pos = '0 0 0' axis = '0 0 1' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg32' type = 'capsule' fromto='0 0 0 .0 .08 -.0' size='0.020 0.03'/>
+					<body name = 'segment33' pos = '0 0.08 0'>
+					<joint name = 'segment33' type = 'hinge' pos = '0 0 0' axis = '0 0 1' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg33' type = 'capsule' fromto='0 0 0 .0 .05 -.0' size='0.020 0.03'/>
+					</body>
+					</body>
+					</body>
+					<body name = 'Finger4' pos = '0 0.05 -0.080'>
+					<joint name = 'segment41' type = 'hinge' pos = '0 0 0' axis = '1 0 0' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg41' type = 'capsule' fromto='0 0 0 .0 .10 -.0' size='0.020 0.03'/>
+					<body name = 'segment42' pos = '0 0.10 0'>
+					<joint name = 'segment42' type = 'hinge' pos = '0 0 0' axis = '1 0 0' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg42' type = 'capsule' fromto='0 0 0 .0 .08 -.0' size='0.020 0.03'/>
+					<body name = 'segment43' pos = '0 0.08 0'>
+					<joint name = 'segment43' type = 'hinge' pos = '0 0 0' axis = '1 0 0' range = '-80 80' stiffness = '0'/>
+					<geom name ='seg43' type = 'capsule' fromto='0 0 0 .0 .05 -.0' size='0.020 0.03'/>
+					</body>
+					</body>
+					</body>
+				</body>
+			   </body>
+              
+      
+
+      <body name="cube" pos="0.28 0.07 0.3">
+         <joint type="free" armature='0.0' damping='0' />
+         <geom type="sphere"  size="0.090" rgba="0 0.9 0.0 1" mass="0.50"/>
+      </body>
+   </worldbody>         
+
+   <actuator>
+      <position name = 'forearm' kp ='8' joint = 'forearm'/>
+      <position name='segment1' kp='10' joint='segment1' />
+      <position name='segment2' kp='10' joint='segment2' />
+      <position name='segment3' kp='10' joint='segment3' />
+      <position name='segment21' kp='10' joint='segment21' />
+      <position name='segment22' kp='10' joint='segment22' /> 
+      <position name='segment23' kp='10' joint='segment23' />
+      <position name='segment31' kp='10' joint='segment31' />
+      <position name='segment32' kp='10' joint='segment32' />
+      <position name='segment33' kp='10' joint='segment33' /> 
+      <position name='segment41' kp='10' joint='segment41' />
+      <position name='segment42' kp='10' joint='segment42' /> 
+      <position name='segment43' kp='10' joint='segment43' />
+   </actuator>
+</mujoco>

@@ -24,8 +24,8 @@ endforeach()
 
 
 
-add_executable(simulate src/simulate.cpp )
-target_link_libraries(simulate mujoco glfw GL ${OpenCV_LIBRARIES})
+add_executable(insect src/insect.cpp )
+target_link_libraries(insect mujoco glfw GL ${OpenCV_LIBRARIES})
 
 add_executable(hello src/hello.cpp )
 target_link_libraries(hello mujoco glfw GL ${OpenCV_LIBRARIES})
